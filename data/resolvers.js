@@ -29,5 +29,28 @@ export const resolvers = {
 				});
 			});
 		},
+
+		updateFriend: (root, { input }) => {
+			return new Promise((resolve, object) => {
+				Friends.findOneAndUpdate(
+					{ _id: input.id },
+					input,
+					{ new: true },
+					(e, friend) => {
+						if (e) reject(e);
+						else resolve(friend);
+					}
+				);
+			});
+		},
+
+		deleteFriend: (root, { id }) => {
+			return new Promise((resolve, object) => {
+				Friends.remove({ _id: id }, (e) => {
+					if (e) reject(e);
+					else resolve('Successfully deleted friend');
+				});
+			});
+		},
 	},
 };
